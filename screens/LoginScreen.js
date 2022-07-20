@@ -1,6 +1,6 @@
 
 import { Text, View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import {useState} from "react";
 
 export default function LoginScreen({navigation}) {
