@@ -1,6 +1,8 @@
 import { Text, View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {useState} from "react"
+import db from "../firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 export default function LoginScreen({navigation}) {
 	//new user's email and password from the textimputs
@@ -16,14 +18,19 @@ export default function LoginScreen({navigation}) {
 		.then((userCredential) => {
 			const user = userCredential.user;
 			auth.currentUser = user;
+            setDoc(doc(db, "Users", userCredential.user.uid), {
+                bio: "",
+                username: "",
+            });
 		})
-        
 		.catch((error) => {
 			const errorCode = error.code;
 			const errorMessage = error.message;
             console.log(errorCode, "<---- error code");
             console.log(errorMessage, "<--- error message")
 		});
+
+        
 	}
 
 	return (
